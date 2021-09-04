@@ -8,16 +8,24 @@ import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import { light } from "@material-ui/core/styles/createPalette";
 import { Paper } from "@material-ui/core";
 import Home from "./Components/Home/Home";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Link,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Login from "./Components/Login/Login";
 import About from "./Components/About/About";
 import Register from "./Components/Register/Register";
 import FIR from "./Components/FIR/FIR";
 import FIR_list from "./Components/FIR_list/FIR_list";
 import User_rqst from "./Components/user_rqst/user_rqst";
+import Requests from "./Components/Requests/Requests";
+import User_Request from "./Components/User_Requests/User_Requests";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SimpleForm from "./Components/Bot/SimpleForm";
+import Footer from "./Components/Footer/Footer";
 
 function App(props) {
   const [darkThemeMode, setDarkThemeMode] = useState(false);
@@ -78,6 +86,8 @@ function App(props) {
     },
   });
 
+  // const location = useLocation();
+
   return (
     <>
       <ThemeProvider
@@ -88,7 +98,7 @@ function App(props) {
           style={{
             minHeight: "100vh",
             borderRadius: "0",
-            backgroundColor: darkThemeMode ? "#212121" : "#FFFAFA",
+            backgroundColor: darkThemeMode ? "#333333" : "#FFFAFA",
           }}
         >
           <ToastContainer
@@ -151,6 +161,24 @@ function App(props) {
                 )}
               />
 
+              <Route
+                exact
+                path="/requests"
+                render={(props) => (
+                  <Requests {...props} darkTheme={darkThemeMode} />
+                )}
+              />
+
+              <Route
+                exact
+                path="/user/requests"
+                render={(props) => (
+                  <User_Request {...props} darkTheme={darkThemeMode} />
+                )}
+              />
+              {/* {location.pathname !== "/" && <Footer />}
+               */}
+              <Footer />
             </div>
           </Router>
         </Paper>
