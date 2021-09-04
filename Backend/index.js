@@ -18,7 +18,9 @@ app.get("/status", (req, res, next) => {
 });
 
 app.use("/user", require("./routes/routes.user"));
-app.use("/police",require("./routes/routes.police"))
+app.use("/police", require("./routes/routes.police"));
+//app.use("/fir",require("./routes/routes.oldFir"))
+
 mongoose.connect(url, () => {
   app.listen(PORT, () => {
     console.log(`Running at ${PORT}`);
