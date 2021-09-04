@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 import {
   TextField,
   Button,
   Typography,
   CircularProgress,
 } from "@material-ui/core";
+=======
+import { TextField, Button, Typography } from "@material-ui/core";
+>>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -18,14 +22,18 @@ function User_rqst() {
     facts: "",
   });
 
+<<<<<<< HEAD
   const [file, setFile] = useState({});
   const [loading, setLoading] = useState(false);
 
+=======
+>>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
   const onSubmitHandler = async (event) => {
+<<<<<<< HEAD
     setLoading(true);
     const { name, address, date, time, location, facts } = values;
     try {
@@ -38,6 +46,19 @@ function User_rqst() {
       formData.append("time", time);
       formData.append("location", location);
       formData.append("facts", facts);
+=======
+    const { name, address, date, time, location, facts } = values;
+    try {
+      const data = {
+        id: localStorage.getItem("id"),
+        name,
+        address,
+        date,
+        time,
+        location,
+        facts,
+      };
+>>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
 
       let config = {
         headers: {
@@ -59,23 +80,37 @@ function User_rqst() {
 
       const res = await axios.post(
         "http://localhost:9000/police/addRequest",
+<<<<<<< HEAD
         formData,
+=======
+        data,
+>>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
         config
       );
 
       console.log(res);
+<<<<<<< HEAD
       toast.success("Successfully submitted");
       setLoading(false);
     } catch (e) {
       console.log(e);
       toast.error("Request failed");
       setLoading(false);
+=======
+    } catch (e) {
+      console.log(e);
+      toast.error("Request failed");
+>>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
     }
     // console.log(values);
   };
 
   return (
+<<<<<<< HEAD
     <div style={{ marginBottom: "20px" }}>
+=======
+    <div>
+>>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
       <Typography variant="h5" style={{ textAlign: "center" }}>
         File your FIR request here
       </Typography>
@@ -144,21 +179,28 @@ function User_rqst() {
           style={{ borderColor: "black", marginBottom: "10px" }}
           required
         />
+<<<<<<< HEAD
 
         <input
           type="file"
           onChange={(event) => setFile(event.target.files[0])}
         />
 
+=======
+>>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
         <Button
           style={{ width: "15%", background: "blue", color: "white" }}
           onClick={onSubmitHandler}
         >
+<<<<<<< HEAD
           {loading ? (
             <CircularProgress style={{ width: "20px", height: "20px" }} />
           ) : (
             "Submit"
           )}
+=======
+          submit
+>>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
         </Button>
       </form>
     </div>
