@@ -3,7 +3,7 @@ import fir from "../../ethereum/FIR";
 import SimpleModal from "../Modal/Modal";
 import web3 from "../../ethereum/web3";
 import { Button, Typography } from "@material-ui/core";
-
+import "./FIR_detail.css";
 const FIR_detail = React.memo((props) => {
   const [values, setValues] = React.useState({
     id: "",
@@ -147,7 +147,7 @@ const FIR_detail = React.memo((props) => {
         style={{
           width: "100%",
           height: "150px",
-          background: `${!props.darkTheme ? "#e0dfda" : "#3D3D3B"}`,
+          background: `${!props.darkTheme ? "#e0dfda" : "#000"}`,
           boxShadow: `0 3px 10px rgb(0 0 0 / 0.2)`,
           padding: "20px",
           margin: "20px 10px",
@@ -184,7 +184,7 @@ const FIR_detail = React.memo((props) => {
       </div>
       {values.status === "2" ? null : (
         <Button
-          style={{ color: "white", background: "blue", marginLeft: "10px" }}
+          style={{ color: "white", background: "#6e48aa", marginLeft: "10px" }}
           onClick={values.status === "0" ? start : end}
         >
           {values.status === "0" ? "start investigation" : "end investigation"}

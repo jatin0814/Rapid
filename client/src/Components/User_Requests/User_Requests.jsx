@@ -4,31 +4,38 @@ import User_Request_Card from "../User_Request_card/User_Request_card";
 
 import axios from "axios";
 import User_rqst from "../user_rqst/user_rqst";
+import { CircularProgress } from "@material-ui/core";
 
-function User_Request() {
-<<<<<<< HEAD
+function User_Request({ darkTheme }) {
   const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(async () => {
+    setLoading(true);
     try {
       const data = {
         id: JSON.parse(localStorage.getItem("policia"))?.userId,
       };
 
-      const res = await axios.post("http://localhost:9000/user/getFir", data);
+      console.log(JSON.parse(localStorage.getItem("policia"))?.userId);
 
-      console.log(res.data);
+      const res = await axios.post("https://rapid-backend.herokuapp.com/user/getFir", data);
+
+      console.log(res.data.requests);
       setRequests(res.data.requests);
       console.log(requests);
+      setLoading(false);
     } catch (e) {
       console.log(e);
+      setLoading(false);
     }
   }, []);
 
   let requestsArray = (
-    <div>
+    <div style={{ width: "80%", margin: "0 auto" }}>
       {requests.map((rqst) => (
         <User_Request_Card
+          darkTheme={darkTheme}
           id={rqst.reqId}
           facts={rqst.facts}
           date={rqst.date}
@@ -37,61 +44,25 @@ function User_Request() {
     </div>
   );
 
-  return (
-    <div>
-      <div>User Request</div>
-      {requestsArray}
+  return loading ? (
+    <div
+      style={{
+        minHeight: "80vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <CircularProgress style={{ color: darkTheme ? "#FFF" : "#000" }} />
     </div>
+  ) : (
+    <dive>
+      <h1 style={{ textAlign: "center", marginBottom: "25px" }}>
+        User Request
+      </h1>
+      {requestsArray}
+    </dive>
   );
 }
 
-=======
-
-    const [requests, setRequests] = useState([]);
-
-    useEffect(async () => {
-        try {
-
-            const data = {
-                id: localStorage.getItem("id")
-              };
-         
-            const res = await axios.post(
-                "http://localhost:9000/user/getFir",
-                data
-              );
-        
-              console.log(res.data);
-              setRequests(res.data.requests);
-              console.log(requests);
-
-        } catch (e) {
-          console.log(e);
-        }
-      }, []);
-
-      let requestsArray = (
-        <div>
-          {requests.map((rqst) => (
-           <User_Request_Card
-           id = {rqst.reqId}
-           facts = {rqst.facts}
-           date = {rqst.date}/>
-          ))}
-        </div>
-      );
-
-  return (
-    <div>
-
-      <div>User Request</div>
-      {requestsArray}
-
-    </div>
-    
-  ) 
-}
-
-
->>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
 export default User_Request;

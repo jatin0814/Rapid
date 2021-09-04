@@ -50,7 +50,7 @@ function Login(props) {
       const temp = { ...values };
       delete temp.showPassword;
       const resp = await axios.post(
-        "http://localhost:9000/user/register",
+        "https://rapid-backend.herokuapp.com/user/register",
         temp
       );
       console.log(resp);

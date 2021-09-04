@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import styles from "./About.module.css";
 import Footer from "../Footer/Footer";
@@ -151,12 +150,6 @@ function About() {
       </div>
     </div>
   );
-=======
-import React from "react";
-
-function About() {
-  return <div>about</div>;
->>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
 }
 
 export default About;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
 import { toast } from "react-toastify";
 import axios from "axios";
 import "./Card.css";
 import { Button, CircularProgress } from "@material-ui/core";
+import { darkTheme } from "../Utils/Theme";
 
 function Request_Card(props) {
   const [values, setValues] = React.useState({
@@ -27,7 +27,7 @@ function Request_Card(props) {
         action: true,
       };
       const res = await axios.post(
-        "http://localhost:9000/police/actionOnRequest",
+        "https://rapid-backend.herokuapp.com/police/actionOnRequest",
         data
       );
       const temp = { ...values };
@@ -50,7 +50,7 @@ function Request_Card(props) {
         action: false,
       };
       const res = await axios.post(
-        "http://localhost:9000/police/actionOnRequest",
+        "https://rapid-backend.herokuapp.com/police/actionOnRequest",
         data
       );
       const temp = { ...values };
@@ -65,8 +65,6 @@ function Request_Card(props) {
     }
   };
 
-  console.log(values.status);
-
   return (
     <div
       style={{
@@ -75,10 +73,13 @@ function Request_Card(props) {
 
         background:
           values.status === undefined
-            ? "#e0dfda"
+            ? props.darkTheme
+              ? "#000"
+              : "#e0dfda"
             : values.status
             ? "#4dff88"
             : "#ff4d4d",
+
         boxShadow: `0 3px 10px rgb(0 0 0 / 0.2)`,
         padding: "20px",
         margin: "15px",
@@ -114,29 +115,40 @@ function Request_Card(props) {
           alignItems: "center",
         }}
       >
-        <div>
-          <Button
+        {values.status ? (
+          <p></p>
+        ) : (
+          <div
             style={{
-              width: "100px",
-              marginRight: "10px",
-              color: "white",
-              background: "blue",
+              flex: "100%",
             }}
-            onClick={onApproveHandler}
           >
-            Approve
-          </Button>
-          <Button
-            style={{
-              width: "100px",
-              color: "white",
-              background: "blue",
-            }}
-            onClick={onRejectHandler}
-          >
-            Reject
-          </Button>
-        </div>
+            <Button
+              style={{
+                width: "80%",
+                margin: "10px 10%",
+                marginTop: "10px",
+                color: "white",
+                background: "#6e48aa",
+              }}
+              onClick={onApproveHandler}
+            >
+              Approve
+            </Button>
+            <Button
+              style={{
+                width: "80%",
+                margin: "10px 10%",
+                color: "white",
+                background: "#6e48aa",
+              }}
+              onClick={onRejectHandler}
+            >
+              Reject
+            </Button>
+          </div>
+        )}
+
         <div>
           {loading && (
             <CircularProgress
@@ -150,76 +162,3 @@ function Request_Card(props) {
 }
 
 export default Request_Card;
-=======
-
-import axios from 'axios';
-
-import { PinDropSharp } from "@material-ui/icons";
-
-function Request_Card(props) {
-
-    const onApproveHandler = async (event) => {
-        try {
-
-            const data = {
-                id: props.id,
-                action: true
-              };
-
-            const res = await axios.post(
-                "http://localhost:9000/police/actionOnRequest",
-                data
-              );
-        
-              console.log(res);
-
-        } catch (e) {
-          console.log(e);
-        }
-    }
-
-    const onRejectHandler = async (event) => {
-        try {
-
-            const data = {
-                id: props.id,
-                action: false
-              };
-
-            const res = await axios.post(
-                "http://localhost:9000/police/actionOnRequest",
-                data
-              );
-        
-              console.log(res);
-
-        } catch (e) {
-          console.log(e);
-        }
-    }
-
-  return (
-    <div>
-
-      <div>{props.id}</div>
-      <div>{props.name}</div>
-      <div>{props.address}</div>
-      <div>{props.date}</div>
-      <div>{props.time}</div>
-      <div>{props.location}</div>
-      <div>{props.facts}</div>
-
-      <button onClick={onApproveHandler}>Approve</button>
-      <button onClick={onRejectHandler}>Reject</button>
-
-    </div>
-    
-  ) 
-}
-
-
-export default Request_Card;
-
-
-
->>>>>>> 19b92aea19a2d61442acab290c220b64672a968d

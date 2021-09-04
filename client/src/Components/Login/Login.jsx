@@ -34,6 +34,10 @@ function Login(props) {
     event.preventDefault();
   };
 
+  React.useEffect(() => {
+    localStorage.removeItem("policia");
+  }, []);
+
   const handleSubmit = async () => {
     try {
       let temp;
@@ -52,7 +56,10 @@ function Login(props) {
         };
         temp = obj;
       }
-      const resp = await axios.post("http://localhost:9000/user/auth", temp);
+      const resp = await axios.post(
+        "https://rapid-backend.herokuapp.com/user/auth",
+        temp
+      );
       console.log(resp.data);
       localStorage.setItem("policia", JSON.stringify(resp.data));
       toast.success("Succesfully Logged in");
@@ -141,7 +148,9 @@ function Login(props) {
             <TextField
               id="outlined-basic-2"
               label={
-                ToggleUser === "Police" ? `Police station Code` : "User Name"
+                ToggleUser === "Police"
+                  ? `I.D.- 1234 , Password- 1234`
+                  : "I.D.- test@test.com , Password- password"
               }
               variant="outlined"
               value={values.userName}
@@ -169,12 +178,25 @@ function Login(props) {
               labelWidth={70}
             />
           </div>
-          <div style={{ width: "80%", margin: "0 auto", padding: "30px 0" }}>
-            <Button style={{ marginRight: "15px" }} onClick={handleSubmit}>
+          <div
+            style={{
+              width: "80%",
+              margin: "0 auto",
+              padding: "30px 0",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            {ToggleUser !== "Police" && (
+              <Button onClick={() => props.history.push("/register")}>
+                Sign Up
+              </Button>
+            )}
+            <Button
+              style={{ marginRight: "15px", fontWeight: "600" }}
+              onClick={handleSubmit}
+            >
               Login
-            </Button>
-            <Button onClick={() => props.history.push("/register")}>
-              Sign Up
             </Button>
           </div>
         </div>

@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
 import {
   TextField,
   Button,
   Typography,
   CircularProgress,
 } from "@material-ui/core";
-=======
-import { TextField, Button, Typography } from "@material-ui/core";
->>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
 import axios from "axios";
 import { toast } from "react-toastify";
 
-function User_rqst() {
+function User_rqst(props) {
   const [values, setValues] = useState({
     name: "",
     address: "",
@@ -22,18 +18,14 @@ function User_rqst() {
     facts: "",
   });
 
-<<<<<<< HEAD
   const [file, setFile] = useState({});
   const [loading, setLoading] = useState(false);
 
-=======
->>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
   const onSubmitHandler = async (event) => {
-<<<<<<< HEAD
     setLoading(true);
     const { name, address, date, time, location, facts } = values;
     try {
@@ -46,19 +38,6 @@ function User_rqst() {
       formData.append("time", time);
       formData.append("location", location);
       formData.append("facts", facts);
-=======
-    const { name, address, date, time, location, facts } = values;
-    try {
-      const data = {
-        id: localStorage.getItem("id"),
-        name,
-        address,
-        date,
-        time,
-        location,
-        facts,
-      };
->>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
 
       let config = {
         headers: {
@@ -79,39 +58,29 @@ function User_rqst() {
       }
 
       const res = await axios.post(
-        "http://localhost:9000/police/addRequest",
-<<<<<<< HEAD
+        "https://rapid-backend.herokuapp.com/police/addRequest",
         formData,
-=======
-        data,
->>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
         config
       );
 
       console.log(res);
-<<<<<<< HEAD
       toast.success("Successfully submitted");
       setLoading(false);
+      props.history.push("/user/requests");
     } catch (e) {
       console.log(e);
       toast.error("Request failed");
       setLoading(false);
-=======
-    } catch (e) {
-      console.log(e);
-      toast.error("Request failed");
->>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
     }
     // console.log(values);
   };
 
   return (
-<<<<<<< HEAD
     <div style={{ marginBottom: "20px" }}>
-=======
-    <div>
->>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
-      <Typography variant="h5" style={{ textAlign: "center" }}>
+      <Typography
+        variant="h5"
+        style={{ textAlign: "center", fontWeight: "700" }}
+      >
         File your FIR request here
       </Typography>
 
@@ -123,84 +92,101 @@ function User_rqst() {
           margin: "0 auto",
         }}
       >
-        <label className="Fir__label">Fir Details</label>
+        <label
+          className="Fir__label"
+          style={{ fontSize: "24px", fontWeight: "600" }}
+        >
+          Fir Details
+        </label>
+        <br />
+        <label>Name:</label>
         <TextField
           id="outlined-basic-2"
-          label={`Name`}
+          label={`Eg. Aditya Singh`}
           variant="outlined"
           value={values.name}
           onChange={handleChange("name")}
           style={{ borderColor: "black", marginBottom: "10px" }}
           required
         />
+        <label>Address:</label>
         <TextField
           id="outlined-basic-2"
-          label={`Address`}
+          label={`Eg. 36/1 Site No '2'`}
           variant="outlined"
           value={values.address}
           onChange={handleChange("address")}
           style={{ borderColor: "black", marginBottom: "10px" }}
           required
         />
-        <label className="Fir__label">Reporter Details</label>
+        <label
+          className="Fir__label"
+          style={{ fontSize: "24px", fontWeight: "600" }}
+        >
+          Reporter Details
+        </label>
+        <br />
+        <label>Date:</label>
         <TextField
           id="outlined-basic-2"
-          label={`Date`}
+          label={`Eg. 03/02/2020`}
           variant="outlined"
           value={values.date}
           onChange={handleChange("date")}
           style={{ borderColor: "black", marginBottom: "10px" }}
           required
         />
+        <label>Time:</label>
         <TextField
           id="outlined-basic-2"
-          label={`Time`}
+          label={`Eg. 02:00`}
           variant="outlined"
           value={values.time}
           onChange={handleChange("time")}
           style={{ borderColor: "black", marginBottom: "10px" }}
           required
         />
+        <label>Location:</label>
         <TextField
           id="outlined-basic-2"
-          label={`Location`}
+          label={`eg Kiadwai Nagar,Kanpur`}
           variant="outlined"
           value={values.location}
           onChange={handleChange("location")}
           style={{ borderColor: "black", marginBottom: "10px" }}
           required
         />
+        <label>Details:</label>
         <TextField
           id="outlined-basic-2"
-          label={`Facts`}
+          label={`Facts/ Details about F.I.R.`}
           variant="outlined"
           value={values.facts}
           onChange={handleChange("facts")}
           style={{ borderColor: "black", marginBottom: "10px" }}
           required
         />
-<<<<<<< HEAD
 
         <input
           type="file"
           onChange={(event) => setFile(event.target.files[0])}
+          style={{ width: "100%", margin: "20px 0", border: "1px solid #ccc" }}
         />
 
-=======
->>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
         <Button
-          style={{ width: "15%", background: "blue", color: "white" }}
+          style={{
+            width: "100%",
+            background: "#6e48aa",
+            color: "white",
+            padding: "7px",
+          }}
           onClick={onSubmitHandler}
         >
-<<<<<<< HEAD
           {loading ? (
             <CircularProgress style={{ width: "20px", height: "20px" }} />
           ) : (
             "Submit"
           )}
-=======
-          submit
->>>>>>> 19b92aea19a2d61442acab290c220b64672a968d
         </Button>
       </form>
     </div>

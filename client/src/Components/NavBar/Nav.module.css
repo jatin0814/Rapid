@@ -2,3 +2,18 @@
   height: 0;
   display: none;
 }
+
+.root {
+  box-shadow: 1px 1px 0 black;
+}
+
+.button {
+  font-size: 10px;
+}
+
+.logo {
+  font-family: "Monoton", cursive;
+  font-size: 34px;
+  letter-spacing: 5px;
+  padding: 10px;
+}

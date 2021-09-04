@@ -1,8 +1,7 @@
-import logo from "./logo.svg";
 import { useState, useEffect } from "react";
 import "./App.css";
 import Nav from "./Components/NavBar/Nav";
-import "./App.css";
+
 import { darkTheme, lightTheme } from "./Components/Utils/Theme";
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import { light } from "@material-ui/core/styles/createPalette";
@@ -22,6 +21,7 @@ import FIR_list from "./Components/FIR_list/FIR_list";
 import User_rqst from "./Components/user_rqst/user_rqst";
 import Requests from "./Components/Requests/Requests";
 import User_Request from "./Components/User_Requests/User_Requests";
+import Old from "./Components/Old_fir/Old_fir";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SimpleForm from "./Components/Bot/SimpleForm";
@@ -176,8 +176,15 @@ function App(props) {
                   <User_Request {...props} darkTheme={darkThemeMode} />
                 )}
               />
-              {/* {location.pathname !== "/" && <Footer />}
-               */}
+
+              <Route
+                exact
+                path="/old"
+                render={(props) => (
+                  <Old {...props} darkTheme={darkThemeMode} />
+                )}
+              />
+
               <Footer />
             </div>
           </Router>

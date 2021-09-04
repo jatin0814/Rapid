@@ -19,13 +19,20 @@ function Nav(props) {
   const location = loc.pathname !== "/";
 
   const isPolice = JSON.parse(localStorage.getItem("policia"))?.isPolice;
-
+  let token = JSON.parse(localStorage.getItem("policia"))?.token;
+  console.log(token, "from nav");
+  const [login, setLogin] = useState(false);
+  useEffect(() => {
+    if (token) {
+      setLogin(true);
+    }
+  }, [token]);
   return (
     <>
       {!location ? (
         <p className={styles.p}></p>
       ) : (
-        <AppBar position="static" color="transparent" className={classes.root}>
+        <AppBar position="static" color="#555" className={classes.root}>
           <Toolbar>
             <Typography
               className={classes.title}
@@ -33,9 +40,95 @@ function Nav(props) {
                 window.location.href = "/";
               }}
             >
-              Home
+              <div className={styles.logo}>Rapid</div>
             </Typography>
 
+            <Link
+              to="/about"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <Button color="inherit" className={classes.Button}>
+                About
+              </Button>
+            </Link>
+
+            {isPolice && login && (
+              <Link
+                to="/fir"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Button color="inherit" className={classes.Button}>
+                  FIR
+                </Button>
+              </Link>
+            )}
+            {isPolice && login && (
+              <Link
+                to="/old"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Button color="inherit" className={classes.Button}>
+                  Offline
+                </Button>
+              </Link>
+            )}
+            {isPolice && login && (
+              <Link
+                to="/list"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Button color="inherit" className={classes.Button}>
+                  History
+                </Button>
+              </Link>
+            )}
+            {isPolice && login && (
+              <Link
+                to="/requests"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Button color="inherit" className={classes.Button}>
+                  Requests
+                </Button>
+              </Link>
+            )}
+            {!isPolice && login && (
+              <Link
+                to="/request"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Button color="inherit" className={classes.Button}>
+                  New Request
+                </Button>
+              </Link>
+            )}
+            {!isPolice && login && (
+              <Link
+                to="/user/requests"
+                style={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  letterSpacing: "1px",
+                }}
+              >
+                <Button color="inherit" className={classes.Button}>
+                  My request
+                </Button>
+              </Link>
+            )}
+
+            <Link
+              to="/login"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <Button
+                color="inherit"
+                className={classes.Button}
+                onClick={() => setLogin(false)}
+              >
+                {login ? "Logout" : "Login"}
+              </Button>
+            </Link>
             <IconButton
               color="inherit"
               onClick={() => {
@@ -49,73 +142,6 @@ function Nav(props) {
                 <ToggleDarkModeIcon />
               )}
             </IconButton>
-            <Link
-              to="/about"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <Button color="inherit" className={classes.Button}>
-                About
-              </Button>
-            </Link>
-
-            <Link
-              to="/login"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <Button color="inherit" className={classes.Button}>
-                Login
-              </Button>
-            </Link>
-            {isPolice && (
-              <Link
-                to="/fir"
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <Button color="inherit" className={classes.Button}>
-                  FIR
-                </Button>
-              </Link>
-            )}
-            {isPolice && (
-              <Link
-                to="/list"
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <Button color="inherit" className={classes.Button}>
-                  All FIR
-                </Button>
-              </Link>
-            )}
-            {isPolice && (
-              <Link
-                to="/requests"
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <Button color="inherit" className={classes.Button}>
-                  All Requests
-                </Button>
-              </Link>
-            )}
-            {!isPolice && (
-              <Link
-                to="/request"
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <Button color="inherit" className={classes.Button}>
-                  New Request
-                </Button>
-              </Link>
-            )}
-            {!isPolice && (
-              <Link
-                to="/user/requests"
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <Button color="inherit" className={classes.Button}>
-                  My request
-                </Button>
-              </Link>
-            )}
           </Toolbar>
         </AppBar>
       )}
@@ -125,29 +151,35 @@ function Nav(props) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    // position: "fixed",
+    //  top: "0",
     flexGrow: 1,
-    maxWidth: 1100,
     margin: "auto",
-    boxShadow: "none",
+    padding: "5px",
+    boxShadow: "0px 0.1px 10px #777",
     cursor: "pointer",
   },
 
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(3),
   },
   title: {
     flexGrow: 1,
     textTransform: "uppercase",
-    letterSpacing: 2,
+    letterSpacing: 3,
     // [theme.breakpoints.down("xs")]: {
     //   fontSize: 0,
     //   // display: 'none'
     // },
   },
   Button: {
-    // marginLeft: "10px",
+    marginLeft: "3px",
     textDecoration: "none",
+    letterSpacing: "2px",
+    fontWeight: "400",
+    borderRadius: "0",
   },
+
   toggleBtn: {
     marginRight: 20,
     [theme.breakpoints.down("xs")]: {
