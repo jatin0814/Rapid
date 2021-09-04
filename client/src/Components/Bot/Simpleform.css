@@ -1,0 +1,36 @@
+table,
+tr,
+td {
+  width: 162px;
+  text-align: center;
+}
+
+.flex {
+  display: block;
+  justify-content: space-around;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  transform: translate(-50%);
+  -webkit-transform: translate(-50%);
+  -moz-transform: translate(-50%);
+  -ms-transform: translate(-50%);
+  -o-transform: translate(-50%);
+}
+.flex li {
+  padding: 0 10px;
+  display: inline-block;
+  color: white;
+}
+li a:link,
+li a:visited {
+  display: block;
+  background-color: blueviolet;
+  color: white;
+  padding: 0 10px;
+}
+.component {
+  box-shadow: none;
+  padding: 0;
+}
