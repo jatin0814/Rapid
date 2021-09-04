@@ -1,0 +1,20 @@
+.AuthHead_p {
+    /* border-bottom: 2px solid #000; */
+    margin-right: 25px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.MuiInputBase-input {
+    border: 1px solid black;
+    display: none;
+}
+
+.Mui-focused {
+    border-color: #000;
+}
+
+.AuthLabel {
+    margin-bottom: 10px;
+}
