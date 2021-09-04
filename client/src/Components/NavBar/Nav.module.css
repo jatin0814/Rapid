@@ -1,0 +1,8 @@
+.p {
+  height: 0;
+  display: none;
+}
+
+.root {
+  box-shadow: 1px 1px 0 black;
+}

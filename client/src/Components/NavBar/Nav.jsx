@@ -16,9 +16,10 @@ function Nav(props) {
   const classes = useStyles();
   const theme = useTheme();
   const loc = useLocation();
-  console.log(loc.pathname);
   const location = loc.pathname !== "/";
-  console.log(location);
+
+  const isPolice = JSON.parse(localStorage.getItem("policia"))?.isPolice;
+
   return (
     <>
       {!location ? (
@@ -32,7 +33,7 @@ function Nav(props) {
                 window.location.href = "/";
               }}
             >
-              Template
+              Home
             </Typography>
 
             <IconButton
@@ -65,14 +66,56 @@ function Nav(props) {
                 Login
               </Button>
             </Link>
-            <Link
-              to="/fir"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <Button color="inherit" className={classes.Button}>
-                FIR
-              </Button>
-            </Link>
+            {isPolice && (
+              <Link
+                to="/fir"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Button color="inherit" className={classes.Button}>
+                  FIR
+                </Button>
+              </Link>
+            )}
+            {isPolice && (
+              <Link
+                to="/list"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Button color="inherit" className={classes.Button}>
+                  All FIR
+                </Button>
+              </Link>
+            )}
+            {isPolice && (
+              <Link
+                to="/requests"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Button color="inherit" className={classes.Button}>
+                  All Requests
+                </Button>
+              </Link>
+            )}
+            {!isPolice && (
+              <Link
+                to="/request"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Button color="inherit" className={classes.Button}>
+                  New Request
+                </Button>
+              </Link>
+            )}
+            {!isPolice && (
+              <Link
+                to="/user/requests"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <Button color="inherit" className={classes.Button}>
+                  My request
+                </Button>
+              </Link>
+            )}
           </Toolbar>
         </AppBar>
       )}

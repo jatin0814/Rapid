@@ -1,5 +1,4 @@
 import React from "react";
-import "./Login.css";
 import TextField from "@material-ui/core/TextField";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -9,8 +8,16 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+import {
+  alpha,
+  ThemeProvider,
+  withStyles,
+  makeStyles,
+  createTheme,
+} from "@material-ui/core/styles";
 function Login(props) {
   const { darkTheme } = props;
 
@@ -18,6 +25,8 @@ function Login(props) {
     userName: "",
     password: "",
     showPassword: false,
+    phoneNo: "",
+    email: "",
   });
 
   const [ToggleUser, setToggleUser] = React.useState("Police");
@@ -35,22 +44,18 @@ function Login(props) {
   };
 
   const handleSubmit = async () => {
+    console.log(values);
+
     try {
-      if (ToggleUser === "Police") {
-        return toast.error("Still under maintainace");
-      } else {
-        const temp = {
-          email: values.userName,
-          password: values.password,
-          isPolice: false,
-        };
-        const resp = await axios.post("http://localhost:9000/user/auth", temp);
-        console.log(resp.data);
-        localStorage.setItem("policia", JSON.stringify(resp.data));
-        toast.success("Succesfully Logged in");
-      }
+      const temp = { ...values };
+      delete temp.showPassword;
+      const resp = await axios.post(
+        "http://localhost:9000/user/register",
+        temp
+      );
+      console.log(resp);
+      toast.success("Succesfully Registered, Go to Login!");
     } catch (e) {
-      console.log(e);
       toast.error("Some error occured");
     }
   };
@@ -89,30 +94,10 @@ function Login(props) {
             <p
               className="AuthHead_p"
               style={{
-                borderBottom:
-                  ToggleUser === "Police" &&
-                  `2px solid ${darkTheme ? "white" : "black"}`,
-              }}
-              onClick={() => {
-                setToggleUser("Police");
-                setValues({ userName: "", password: "", showPassword: false });
+                borderBottom: `2px solid ${darkTheme ? "white" : "black"}`,
               }}
             >
-              Police
-            </p>
-            <p
-              className="AuthHead_p"
-              style={{
-                borderBottom:
-                  ToggleUser === "User" &&
-                  `2px solid ${darkTheme ? "white" : "black"}`,
-              }}
-              onClick={() => {
-                setToggleUser("User");
-                setValues({ userName: "", password: "", showPassword: false });
-              }}
-            >
-              User
+              Register
             </p>
           </div>
           <div
@@ -123,17 +108,31 @@ function Login(props) {
               margin: "0 auto",
             }}
           >
-            <label className="AuthLabel">
-              {ToggleUser === "Police" ? `Police station Code` : "User Name"}
-            </label>
+            <label className="AuthLabel">Name</label>
             <TextField
               id="outlined-basic-2"
-              label={
-                ToggleUser === "Police" ? `Police station Code` : "User Name"
-              }
+              label={`Name`}
               variant="outlined"
               value={values.userName}
               onChange={handleChange("userName")}
+              style={{ borderColor: "black" }}
+            />
+            <label className="AuthLabel">Phone number</label>
+            <TextField
+              id="outlined-basic-2"
+              label={`Phone number`}
+              variant="outlined"
+              value={values.phoneNo}
+              onChange={handleChange("phoneNo")}
+              style={{ borderColor: "black" }}
+            />
+            <label className="AuthLabel">Email</label>
+            <TextField
+              id="outlined-basic-2"
+              label={`Email`}
+              variant="outlined"
+              value={values.email}
+              onChange={handleChange("email")}
               style={{ borderColor: "black" }}
             />
             <label className="AuthLabel">Password</label>
@@ -159,10 +158,15 @@ function Login(props) {
           </div>
           <div style={{ width: "80%", margin: "0 auto", padding: "30px 0" }}>
             <Button style={{ marginRight: "15px" }} onClick={handleSubmit}>
-              Login
+              Register
             </Button>
-            <Button onClick={() => props.history.push("/register")}>
-              Sign Up
+            <Button
+              style={{ marginRight: "15px" }}
+              onClick={() => {
+                props.history.push("/login");
+              }}
+            >
+              Login
             </Button>
           </div>
         </div>
