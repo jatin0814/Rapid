@@ -10,7 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded());
 app.use(express.json());
-
+app.use("/police",require("./routes/routes.police"))
 const url = process.env.MONGODBURL;
 app.get("/status", (req, res, next) => {
   res.send("UP!");
