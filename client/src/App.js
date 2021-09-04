@@ -1,24 +1,161 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import { useState, useEffect } from "react";
+import "./App.css";
+import Nav from "./Components/NavBar/Nav";
+import "./App.css";
+import { darkTheme, lightTheme } from "./Components/Utils/Theme";
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+import { light } from "@material-ui/core/styles/createPalette";
+import { Paper } from "@material-ui/core";
+import Home from "./Components/Home/Home";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import Login from "./Components/Login/Login";
+import About from "./Components/About/About";
+import Register from "./Components/Register/Register";
+import FIR from "./Components/FIR/FIR";
+import FIR_list from "./Components/FIR_list/FIR_list";
+import User_rqst from "./Components/user_rqst/user_rqst";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import SimpleForm from "./Components/Bot/SimpleForm";
 
-function App() {
+function App(props) {
+  const [darkThemeMode, setDarkThemeMode] = useState(false);
+
+  const toggleDarkTheme = () => {
+    console.log("trugger");
+    setDarkThemeMode(!darkThemeMode);
+  };
+
+  const fontFamilyRoboto = {
+    fontFamily: [
+      "Roboto",
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+  };
+
+  const fontFamilyMetropolis = {
+    fontFamily: [
+      "Metropolis",
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(","),
+    letterSpacing: "0.015rem",
+  };
+
+  const muiDarkTheme = createTheme({
+    palette: {
+      type: "dark",
+      primary: {
+        main: "#212121",
+      },
+    },
+
+    typography: {
+      ...fontFamilyMetropolis,
+      fontSize: 15,
+    },
+  });
+
+  const muiLightTheme = createTheme({
+    palette: {
+      type: "light",
+      primary: {
+        main: "#FFFFFF",
+      },
+    },
+
+    typography: {
+      ...fontFamilyRoboto,
+      fontSize: 15,
+    },
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <ThemeProvider
+        theme={darkThemeMode ? muiDarkTheme : muiLightTheme}
+        className="App"
+      >
+        <Paper
+          style={{
+            minHeight: "100vh",
+            borderRadius: "0",
+            backgroundColor: darkThemeMode ? "#212121" : "#FFFAFA",
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+          <SimpleForm />
+          <Router>
+            <div className="App">
+              <Nav
+                {...props}
+                darkTheme={darkThemeMode}
+                toggleDarkTheme={toggleDarkTheme}
+              />
+
+              <Route exact path="/" component={Home} />
+              <Route
+                exact
+                path="/login"
+                render={(props) => (
+                  <Login {...props} darkTheme={darkThemeMode} />
+                )}
+              />
+              <Route exact path="/about" component={About} />
+
+              <Route
+                exact
+                path="/register"
+                render={(props) => (
+                  <Register {...props} darkTheme={darkThemeMode} />
+                )}
+              />
+
+              <Route
+                exact
+                path="/fir"
+                render={(props) => <FIR {...props} darkTheme={darkThemeMode} />}
+              />
+
+              <Route
+                exact
+                path="/list"
+                render={(props) => (
+                  <FIR_list {...props} darkTheme={darkThemeMode} />
+                )}
+              />
+
+              <Route
+                exact
+                path="/request"
+                render={(props) => (
+                  <User_rqst {...props} darkTheme={darkThemeMode} />
+                )}
+              />
+
+            </div>
+          </Router>
+        </Paper>
+      </ThemeProvider>
+    </>
   );
 }
 
